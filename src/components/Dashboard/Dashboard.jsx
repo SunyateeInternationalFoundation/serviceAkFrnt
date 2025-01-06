@@ -65,7 +65,7 @@ const Dashboard = () => {
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-xl font-semibold">Earnings</h3>
           <div className="mt-4">
-            <div className="text-2xl font-bold">$8145</div>
+            <div className="text-2xl font-bold">₹ 8145</div>
             <p className="text-gray-500">Total earned last week</p>
             <p className="text-green-500 mt-2">
               Performance is 30% better than last month
