@@ -27,9 +27,10 @@ const Login = () => {
         const data = response.data.data;
         const payload = {
           providerId: data._id,
-          firstName: data?.name,
+          name: data?.name,
           email: data?.email,
           phone: data?.phone,
+          isRegister: false,
           isLogin: true,
         };
         alert("Sign In Successful!");

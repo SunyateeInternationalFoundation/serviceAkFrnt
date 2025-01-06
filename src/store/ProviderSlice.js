@@ -2,14 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
   providerId: "",
-  firstName: "",
+  name: "",
   email: "",
   phone: "",
   isLogin: false,
+  isRegister: false,
 };
 
 if (localStorage.getItem("provider")) {
-  const { email, providerId, firstName, phone } = JSON.parse(
+  const { email, providerId, name, phone } = JSON.parse(
     localStorage.getItem("provider")
   );
 
@@ -17,8 +18,9 @@ if (localStorage.getItem("provider")) {
     providerId,
     email,
     phone,
+    name,
     isLogin: true,
-    firstName,
+    isRegister: false,
   };
 }
 
@@ -26,36 +28,39 @@ const ProviderSlice = createSlice({
   name: "provider",
   initialState,
   reducers: {
-    // setProviderRegister: (state, action) => {
-    //   const { providerId, email, firstName, phone } = action.payload;
-    //   localStorage.setItem("provider", JSON.stringify(action.payload));
-    //   state.providerId = providerId;
-    //   state.isRegister = true;
-    //   state.email = email;
-
-    //   state.firstName = firstName;
-    //   state.phone = phone;
-    // },
-    setProviderLogin: (state, action) => {
-      const { providerId, email, firstName, phone } = action.payload;
+    setProviderRegister: (state, action) => {
+      const { providerId, email, name, phone } = action.payload;
       localStorage.setItem("provider", JSON.stringify(action.payload));
       state.providerId = providerId;
-      state.isLogin = true;
       state.email = email;
-      state.firstName = firstName;
+      state.name = name;
       state.phone = phone;
+      state.isRegister = true;
+      state.isLogin = false;
     },
-    setProviderLogout: (state, action) => {
-      localStorage.clear();
+    setProviderLogin: (state, action) => {
+      const { providerId, email, name, phone } = action.payload;
+      localStorage.setItem("provider", JSON.stringify(action.payload));
+      state.providerId = providerId;
+      state.email = email;
+      state.name = name;
+      state.phone = phone;
+      state.isLogin = true;
+      state.isRegister = false;
+    },
+    setProviderLogout: (state) => {
+      localStorage.removeItem("provider");
       state.providerId = "";
       state.email = "";
       state.phone = "";
-      state.firstName = "";
+      state.name = "";
       state.isLogin = false;
+      state.isRegister = false;
     },
   },
 });
 
-export const { setProviderLogout, setProviderLogin } = ProviderSlice.actions;
+export const { setProviderRegister, setProviderLogin, setProviderLogout } =
+  ProviderSlice.actions;
 
 export default ProviderSlice.reducer;
