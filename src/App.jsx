@@ -11,7 +11,7 @@ function App() {
     <>
       <Routes>
         {!isAuth ? (
-          <Route path="/" element={<Register />}></Route>
+          <Route path="/" element={<Login />}></Route>
         ) : (
           <Route path="/*" element={<Home />}></Route>
         )}
