@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./components/HomePage/Home";
+import Login from "./components/ProviderLogin/Login";
 function App() {
   return (
     // <Router>
@@ -12,7 +12,7 @@ function App() {
       {/* <Routes>
         <Route path="/" element={<Home />}></Route>
       </Routes> */}
-      <Home />
+      <Login />
     </>
   );
 }

@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -15,8 +17,17 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_WEBSITE}/login`, formData);
-      alert("Sign In Successful!");
+      const response = await axios.post(
+        `${import.meta.env.VITE_WEBSITE}/login`,
+        formData
+      );
+      const payload = {};
+      if (response.data.success) {
+        console.log("data", response.data.data);
+        // alert("Sign In Successful!");
+        // dispatch(setProviderLogin(response));
+        // navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Error during sign in", error);
     }
@@ -77,6 +88,6 @@ function Login() {
       </form>
     </div>
   );
-}
+};
 
 export default Login;
