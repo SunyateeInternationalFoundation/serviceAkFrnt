@@ -25,7 +25,7 @@ const Sidebar = () => {
     { name: "My Services", path: "/my-services", icon: <FaTools /> },
     { name: "Job Requests", path: "/job-requests", icon: <FaBriefcase /> },
     { name: "Job Execution", path: "/job-execution", icon: <FaTools /> },
-    { name: "Payments", path: "/payments", icon: <FaMoneyBillAlt /> },
+    { name: "Payments", path: "/payouts", icon: <FaMoneyBillAlt /> },
     { name: "Reviews", path: "/reviews", icon: <FaStar /> },
   ];
 
