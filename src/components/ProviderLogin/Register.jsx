@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setProviderRegister } from "../../store/ProviderSlice";
 function Register() {
   const [formData, setFormData] = useState({
     name: "",
@@ -9,7 +10,8 @@ function Register() {
     phone: "",
     password: "",
   });
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -17,8 +19,25 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_WEBSITE}/register`, formData);
-      alert("Sign Up Successful!");
+      const response = await axios.post(
+        `${import.meta.env.VITE_WEBSITE}/register`,
+        formData
+      );
+      if (response.data.success) {
+        console.log("data", response.data.data);
+        const data = response.data.data;
+        const payload = {
+          providerId: data._id,
+          name: data?.name,
+          email: data?.email,
+          phone: data?.phone,
+          isRegister: true,
+          isLogin: false,
+        };
+        alert("Sign In Successful!");
+        dispatch(setProviderRegister(payload));
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Error during sign up", error);
     }
