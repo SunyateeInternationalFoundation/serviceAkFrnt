@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { setProviderLogin } from "../../store/ProviderSlice";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -21,12 +21,20 @@ const Login = () => {
         `${import.meta.env.VITE_WEBSITE}/login`,
         formData
       );
-      const payload = {};
+
       if (response.data.success) {
         console.log("data", response.data.data);
-        // alert("Sign In Successful!");
-        // dispatch(setProviderLogin(response));
-        // navigate("/dashboard");
+        const data = response.data.data;
+        const payload = {
+          providerId: data._id,
+          firstName: data?.name,
+          email: data?.email,
+          phone: data?.phone,
+          isLogin: true,
+        };
+        alert("Sign In Successful!");
+        dispatch(setProviderLogin(payload));
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error("Error during sign in", error);
