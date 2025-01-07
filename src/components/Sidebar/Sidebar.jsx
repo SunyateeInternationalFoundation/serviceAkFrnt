@@ -8,6 +8,7 @@ import {
   FaMoneyBillAlt,
   FaStar,
   FaTools,
+  FaUserCircle
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -134,12 +135,18 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="mt-auto p-4">
-        <button
-          className="w-full p-2 rounded-md bg-pink-600 hover:bg-pink-700 text-white"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+        {isClose ? (
+          <button className="p-2">
+            <FaUserCircle className="text-xl text-pink-500 hover:text-pink-700" />
+          </button>
+        ) : (
+          <button
+            className="w-full p-2 rounded-md bg-pink-600 hover:bg-pink-700 text-white"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        )}
       </div>
     </div>
   );
