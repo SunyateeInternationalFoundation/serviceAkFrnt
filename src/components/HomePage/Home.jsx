@@ -10,11 +10,10 @@ import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <div className="flex">
-        <div>
           <Sidebar />
-        </div>
+        
         <div style={{ width: "100%" }} className="bg-gray-100">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -27,7 +26,7 @@ const Home = () => {
           <Outlet />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
