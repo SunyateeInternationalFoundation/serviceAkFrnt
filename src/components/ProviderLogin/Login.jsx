@@ -30,7 +30,6 @@ const Login = () => {
           name: data?.name,
           email: data?.email,
           phone: data?.phone,
-          isRegister: false,
           isLogin: true,
         };
         alert("Sign In Successful!");
@@ -90,7 +89,7 @@ const Login = () => {
         </button>
         <p className="mt-10 text-center">
           Don't have an account?{" "}
-          <Link to="/" className="text-blue-500">
+          <Link to="/register" className="text-blue-500">
             Sign Up
           </Link>
         </p>

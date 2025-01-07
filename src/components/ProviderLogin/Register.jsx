@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setProviderRegister } from "../../store/ProviderSlice";
+import { setProviderLogin } from "../../store/ProviderSlice";
 function Register() {
   const [formData, setFormData] = useState({
     name: "",
@@ -27,15 +27,14 @@ function Register() {
         console.log("data", response.data.data);
         const data = response.data.data;
         const payload = {
-          providerId: data._id,
+          providerId: data.providerId,
           name: data?.name,
           email: data?.email,
           phone: data?.phone,
-          isRegister: true,
-          isLogin: false,
+          isLogin: true,
         };
         alert("Sign In Successful!");
-        dispatch(setProviderRegister(payload));
+        dispatch(setProviderLogin(payload));
         navigate("/dashboard");
       }
     } catch (error) {

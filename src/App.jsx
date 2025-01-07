@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./components/HomePage/Home";
 import Login from "./components/ProviderLogin/Login";
+import Register from "./components/ProviderLogin/Register";
 function App() {
   const providerDetails = useSelector((state) => state.provider);
   const isAuth = providerDetails?.isLogin;
@@ -10,7 +11,10 @@ function App() {
     <>
       <Routes>
         {!isAuth ? (
+          <>
           <Route path="/" element={<Login />}></Route>
+          <Route path="/register" element={<Register />} />
+          </>
         ) : (
           <Route path="/*" element={<Home />}></Route>
         )}

@@ -6,7 +6,6 @@ let initialState = {
   email: "",
   phone: "",
   isLogin: false,
-  isRegister: false,
 };
 
 if (localStorage.getItem("provider")) {
@@ -20,7 +19,6 @@ if (localStorage.getItem("provider")) {
     phone,
     name,
     isLogin: true,
-    isRegister: false,
   };
 }
 
@@ -28,16 +26,6 @@ const ProviderSlice = createSlice({
   name: "provider",
   initialState,
   reducers: {
-    setProviderRegister: (state, action) => {
-      const { providerId, email, name, phone } = action.payload;
-      localStorage.setItem("provider", JSON.stringify(action.payload));
-      state.providerId = providerId;
-      state.email = email;
-      state.name = name;
-      state.phone = phone;
-      state.isRegister = true;
-      state.isLogin = false;
-    },
     setProviderLogin: (state, action) => {
       const { providerId, email, name, phone } = action.payload;
       localStorage.setItem("provider", JSON.stringify(action.payload));
@@ -60,7 +48,7 @@ const ProviderSlice = createSlice({
   },
 });
 
-export const { setProviderRegister, setProviderLogin, setProviderLogout } =
+export const {  setProviderLogin, setProviderLogout } =
   ProviderSlice.actions;
 
 export default ProviderSlice.reducer;
