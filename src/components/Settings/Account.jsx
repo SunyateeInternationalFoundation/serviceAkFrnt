@@ -9,15 +9,15 @@ function Account() {
     name: "",
     userName: "",
     email: "",
-    mobileNumber: "",
+    phone: "",
     gender: "",
-    dateOfBirth: "",
+    dob: "",
     bio: "",
     address: "",
     country: "",
     state: "",
     city: "",
-    postalCode: "",
+    pincode: "",
     languages: "",
   });
   const providerId = useSelector((state) => state.provider).providerId;
@@ -62,25 +62,26 @@ function Account() {
   //   }
   // };
 
-  const handleLanguageChange = (e) => {
-    const { options } = e.target;
-    const selectedLanguages = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedLanguages.push(options[i].value);
-      }
-    }
-    setUserData({ ...userData, languages: selectedLanguages });
-  };
+  // const handleLanguageChange = (e) => {
+  //   const { options } = e.target;
+  //   const selectedLanguages = [];
+  //   for (let i = 0; i < options.length; i++) {
+  //     if (options[i].selected) {
+  //       selectedLanguages.push(options[i].value);
+  //     }
+  //   }
+  //   setUserData({ ...userData, languages: selectedLanguages });
+  // };
 
   const toggleEditMode = () => {
     setIsEditing((prev) => !prev);
   };
   const handleSubmit = () => {
     axios
-      .put(`${import.meta.env.VITE_WEBSITE}/provider`, userData)
+      .put(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`, userData)
       .then((response) => {
         alert("User data updated successfully!");
+        setIsEditing(false);
       })
       .catch((error) => {
         console.error("There was an error updating the user data!", error);
@@ -147,6 +148,7 @@ function Account() {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled={!isEditing}
             />
           </div>
           <div>
@@ -159,6 +161,7 @@ function Account() {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled={!isEditing}
             />
           </div>
         </div>
@@ -174,6 +177,7 @@ function Account() {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="email"
+              disabled
             />
           </div>
           <div>
@@ -181,11 +185,12 @@ function Account() {
               Mobile Number
             </label>
             <input
-              name="mobileNumber"
-              value={userData.mobileNumber}
+              name="phone"
+              value={userData.phone}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled
             />
           </div>
         </div>
@@ -200,6 +205,7 @@ function Account() {
               value={userData.gender}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
+              disabled={!isEditing}
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -211,11 +217,12 @@ function Account() {
               Date of Birth
             </label>
             <input
-              name="dateOfBirth"
-              value={userData.dateOfBirth}
+              name="dob"
+              value={userData.dob}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="date"
+              disabled={!isEditing}
             />
           </div>
         </div>
@@ -230,6 +237,7 @@ function Account() {
             onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded"
             rows="2"
+            disabled={!isEditing}
           ></textarea>
         </div>
 
@@ -244,6 +252,7 @@ function Account() {
             onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded"
             type="text"
+ disabled={!isEditing}
           />
         </div>
         <div>
@@ -256,6 +265,7 @@ function Account() {
             onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded"
             type="text"
+ disabled={!isEditing}
           />
         </div>
       </div> */}
@@ -269,6 +279,7 @@ function Account() {
             onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded"
             type="text"
+            disabled={!isEditing}
           />
         </div>
         <div className="grid grid-cols-2 gap-4 mt-4">
@@ -282,6 +293,7 @@ function Account() {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled={!isEditing}
             />
           </div>
           <div>
@@ -294,6 +306,7 @@ function Account() {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled={!isEditing}
             />
           </div>
         </div>
@@ -304,11 +317,12 @@ function Account() {
               Postal Code
             </label>
             <input
-              name="postalCode"
-              value={userData.postalCode}
+              name="pincode"
+              value={userData.pincode}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled={!isEditing}
             />
           </div>
           <div>
@@ -321,6 +335,7 @@ function Account() {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded"
               type="text"
+              disabled={!isEditing}
             />
           </div>
         </div>
@@ -334,6 +349,7 @@ function Account() {
             onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded"
             type="text"
+            disabled={!isEditing}
           />
         </div>
 
