@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
+
 function Account() {
   const [userData, setUserData] = useState({
     profilePicture: "",
@@ -18,11 +20,13 @@ function Account() {
     postalCode: "",
     languages: [],
   });
+  const providerId = useSelector((state) => state.provider).providerId;
+
   const [isEditing, setIsEditing] = useState(false);
   useEffect(() => {
     // Fetch user data from the backend
     axios
-      .get("/api/user/details")
+      .get(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`)
       .then((response) => {
         setUserData(response.data);
       })
@@ -30,7 +34,7 @@ function Account() {
         console.error("There was an error fetching the user data!", error);
       });
   }, []);
-
+  console.log("providerId", providerId);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -74,7 +78,7 @@ function Account() {
   };
   const handleSubmit = () => {
     axios
-      .put(`${import.meta.env.VITE_WEBSITE}`, userData)
+      .put(`${import.meta.env.VITE_WEBSITE}/provider`, userData)
       .then((response) => {
         alert("User data updated successfully!");
       })

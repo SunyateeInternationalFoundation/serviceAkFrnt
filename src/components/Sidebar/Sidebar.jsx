@@ -8,12 +8,12 @@ import {
   FaMoneyBillAlt,
   FaStar,
   FaTools,
-  FaUserCircle
+  FaUserCircle,
 } from "react-icons/fa";
+import { MdManageAccounts, MdVerified } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setProviderLogout } from "../../store/ProviderSlice";
-
 const Sidebar = ({ onSidebarToggle }) => {
   const [isClose, setIsClose] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -31,8 +31,12 @@ const Sidebar = ({ onSidebarToggle }) => {
   ];
 
   const settingsItems = [
-    { name: "Account", path: "/settings/account" },
-    { name: "Profile Verification", path: "/settings/verification" },
+    { name: "Account", path: "/settings/account", icon: <MdManageAccounts /> },
+    {
+      name: "Profile Verification",
+      path: "/settings/verification",
+      icon: <MdVerified />,
+    },
   ];
 
   function handleLogout() {
@@ -132,7 +136,11 @@ const Sidebar = ({ onSidebarToggle }) => {
                         : "text-pink-500 "
                     }`}
                   >
-                    {item.name}
+                    {isClose ? (
+                      <span className="ml-[-200px]">{item.icon}</span>
+                    ) : (
+                      <span>{item.name}</span>
+                    )}
                   </span>
                 </Link>
               ))}

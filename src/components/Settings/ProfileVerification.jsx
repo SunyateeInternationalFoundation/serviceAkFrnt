@@ -1,12 +1,12 @@
 import React from "react";
-import { FiPhone, FiMail, FiFileText, FiTrash } from "react-icons/fi";
+import { FiFileText, FiMail, FiPhone, FiTrash } from "react-icons/fi";
 
 const ProfileVerification = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Profile Verification</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="border rounded-lg p-6 shadow-sm bg-white h-40">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="border rounded-lg p-6 shadow-sm bg-white">
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
               <FiPhone className="text-gray-700 text-lg" />
@@ -20,7 +20,7 @@ const ProfileVerification = () => {
           </div>
           <hr className="border-t border-gray-300 mb-4" />
           <div className="mt-4 flex items-center justify-between">
-            <span className="text-red-700 font-semibold bg-red-200 rounded-sm px-1">
+            <span className="text-red-700 font-semibold mr-2 bg-red-200 rounded-sm px-1">
               • Not Verified
             </span>
             <div className="flex items-center">
@@ -34,7 +34,7 @@ const ProfileVerification = () => {
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 shadow-sm bg-white h-40">
+        <div className="border rounded-lg p-4 shadow-sm bg-white">
           <div className="flex items-center mb-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
               <FiMail className="text-gray-700 text-lg" />
@@ -50,7 +50,7 @@ const ProfileVerification = () => {
           </div>
           <hr className="border-t border-gray-300 mb-3" />
           <div className="flex items-center justify-between">
-            <span className="text-red-700 font-semibold bg-red-200 rounded-sm px-1">
+            <span className="text-red-700 font-semibold bg-red-200 mr-2 rounded-sm px-1">
               • Not Verified
             </span>
             <div className="flex items-center">
@@ -64,7 +64,7 @@ const ProfileVerification = () => {
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 shadow-sm bg-white h-40">
+        <div className="border rounded-lg p-4 shadow-sm bg-white">
           <div className="flex items-center mb-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
               <FiFileText className="text-gray-700 text-lg" />
@@ -81,7 +81,7 @@ const ProfileVerification = () => {
           </div>
           <hr className="border-t border-gray-300 mb-3" />
           <div className="flex items-center justify-between">
-            <span className="text-red-700 font-semibold bg-red-200 rounded-sm px-1">
+            <span className="text-red-700 font-semibold bg-red-200 mr-2 rounded-sm px-1">
               • Not Verified
             </span>
             <div className="flex items-center">
