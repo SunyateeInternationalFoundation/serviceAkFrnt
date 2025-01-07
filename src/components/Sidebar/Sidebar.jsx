@@ -39,7 +39,7 @@ const Sidebar = () => {
   }
   return (
     <div
-      className={`flex flex-col ${
+      className={`fixed top-0 left-0 flex flex-col ${
         isClose ? "w-20" : "w-64"
       } h-screen text-white transition-all duration-300 shadow-lg overflow-y-auto`}
     >
@@ -60,7 +60,7 @@ const Sidebar = () => {
         </button>
       </div>
       <hr />
-      <div className="flex flex-col p-4 space-y-4 overflow-y-auto">
+      <div className="flex flex-col p-4 space-y-4 overflow-y-auto flex-grow">
         {menuItems.map((item, index) => (
           <Link key={index} to={item.path} className="cursor-pointer">
             <div

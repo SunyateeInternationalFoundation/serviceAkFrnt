@@ -12,12 +12,10 @@ import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
   return (
-    <div>
-      <div className="flex">
-        <div>
-          <Sidebar />
-        </div>
-        <div style={{ width: "100%" }} className="bg-gray-100">
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1 ml-64 bg-gray-100 min-h-screen">
+        <div className="p-4">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/my-services" element={<MyServices />} />
