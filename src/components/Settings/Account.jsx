@@ -85,7 +85,7 @@ function Account() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Account Settings</h2>
+      <h2 className="text-2xl font-bold mb-4 ml-10">Account Settings</h2>
       <div className="container mx-auto p-3 bg-white shadow rounded mb-10 mt-6">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -366,18 +366,18 @@ function Account() {
             Save Changes
           </button>
         </div> */}
-        <div className="mt-6 flex justify-between">
+        <div className="mt-6 flex justify-end">
           {isEditing ? (
             <>
               <button
                 onClick={toggleEditMode}
-                className="bg-gray-500 text-white px-4 py-2 rounded"
+                className="bg-gray-200 text-black px-4 py-2 text-sm rounded"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmit}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-[#3f3f46] text-white px-4 py-2 text-sm rounded ml-5"
               >
                 Save Changes
               </button>
@@ -385,7 +385,7 @@ function Account() {
           ) : (
             <button
               onClick={toggleEditMode}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-[#3f3f46] text-white px-8 text-sm py-2 rounded"
             >
               Edit
             </button>
