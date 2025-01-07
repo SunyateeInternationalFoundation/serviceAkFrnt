@@ -78,7 +78,7 @@ function Account() {
   };
   const handleSubmit = () => {
     axios
-      .put(`${import.meta.env.VITE_WEBSITE}/provider`, userData)
+      .put(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`, userData)
       .then((response) => {
         alert("User data updated successfully!");
       })
