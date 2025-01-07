@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setProviderLogout } from "../../store/ProviderSlice";
 
-const Sidebar = () => {
+const Sidebar = ({ onSidebarToggle }) => {
   const [isClose, setIsClose] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const location = useLocation();
@@ -34,10 +34,19 @@ const Sidebar = () => {
     { name: "Account", path: "/settings/account" },
     { name: "Profile Verification", path: "/settings/verification" },
   ];
+
   function handleLogout() {
     dispatch(setProviderLogout());
     window.location.href = "http://localhost:3000";
   }
+
+  const toggleSidebar = () => {
+    const newIsClose = !isClose;
+    setIsClose(newIsClose);
+    setIsSettingsOpen(false);
+    onSidebarToggle(newIsClose);
+  };
+
   return (
     <div
       className={`fixed top-0 left-0 flex flex-col ${
@@ -52,10 +61,7 @@ const Sidebar = () => {
         )}
         <button
           className="p-2 rounded-md bg-pink-600 hover:bg-pink-700"
-          onClick={() => {
-            setIsClose(!isClose);
-            setIsSettingsOpen(false);
-          }}
+          onClick={toggleSidebar}
         >
           {isClose ? <FaChevronRight /> : <FaChevronLeft />}
         </button>

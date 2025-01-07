@@ -18,7 +18,7 @@ function Account() {
     postalCode: "",
     languages: [],
   });
-
+  const [isEditing, setIsEditing] = useState(false);
   useEffect(() => {
     // Fetch user data from the backend
     axios
@@ -69,10 +69,12 @@ function Account() {
     setUserData({ ...userData, languages: selectedLanguages });
   };
 
+  const toggleEditMode = () => {
+    setIsEditing((prev) => !prev);
+  };
   const handleSubmit = () => {
-    // Send updated data to the backend
     axios
-      .post("/api/user/update", userData)
+      .put(`${import.meta.env.VITE_WEBSITE}`, userData)
       .then((response) => {
         alert("User data updated successfully!");
       })
@@ -102,9 +104,10 @@ function Account() {
               <div className="flex flex-row gap-2 ml-5">
                 <label
                   htmlFor="file-upload"
-                  className="cursor-pointer bg-[#3f3f46] text-sm text-white px-2 py-1 rounded text-center"
+                  className="flex cursor-pointer bg-[#3f3f46] text-sm text-white px-2 py-1 rounded text-center"
                 >
-                  Upload <IoCloudUploadOutline />
+                  <IoCloudUploadOutline className="mr-1 mt-1" />{" "}
+                  <span>Upload </span>
                 </label>
                 <input
                   id="file-upload"
@@ -325,7 +328,6 @@ function Account() {
             name="languages"
             value={userData.languages}
             onChange={handleLanguageChange}
-            multiple
             className="w-full px-3 py-2 border rounded"
           >
             <option value="Hindi">Hindi</option>
@@ -356,13 +358,38 @@ function Account() {
           </select>
         </div>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <button
             onClick={handleSubmit}
             className="bg-blue-500 text-white px-4 py-2 rounded"
           >
             Save Changes
           </button>
+        </div> */}
+        <div className="mt-6 flex justify-between">
+          {isEditing ? (
+            <>
+              <button
+                onClick={toggleEditMode}
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Save Changes
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={toggleEditMode}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Edit
+            </button>
+          )}
         </div>
       </div>
     </div>

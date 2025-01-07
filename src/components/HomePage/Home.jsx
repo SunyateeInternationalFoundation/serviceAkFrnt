@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 
 import Dashboard from "../Dashboard/Dashboard";
@@ -11,10 +12,20 @@ import ProfileVerification from "../Settings/ProfileVerification";
 import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
+  const [isSidebarClosed, setIsSidebarClosed] = useState(false);
+
+  const handleSidebarToggle = (isClose) => {
+    setIsSidebarClosed(isClose);
+  };
+
   return (
     <div className="flex">
-      <Sidebar />
-      <div className="flex-1 ml-64 bg-gray-100 min-h-screen">
+      <Sidebar onSidebarToggle={handleSidebarToggle} />
+      <div
+        className={`flex-1 ${
+          isSidebarClosed ? "ml-20" : "ml-64"
+        } bg-gray-100 min-h-screen transition-all duration-300`}
+      >
         <div className="p-4">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
