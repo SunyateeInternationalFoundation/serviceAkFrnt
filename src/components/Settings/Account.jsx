@@ -18,17 +18,17 @@ function Account() {
     state: "",
     city: "",
     postalCode: "",
-    languages: [],
+    languages: "",
   });
   const providerId = useSelector((state) => state.provider).providerId;
 
   const [isEditing, setIsEditing] = useState(false);
   useEffect(() => {
-    // Fetch user data from the backend
     axios
       .get(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`)
       .then((response) => {
-        setUserData(response.data);
+        console.log("response", response.data.data);
+        setUserData(response.data.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the user data!", error);
@@ -328,38 +328,13 @@ function Account() {
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Languages
           </label>
-          <select
+          <input
             name="languages"
             value={userData.languages}
-            onChange={handleLanguageChange}
+            onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded"
-          >
-            <option value="Hindi">Hindi</option>
-            <option value="English">English</option>
-            <option value="Bengali">Bengali</option>
-            <option value="Telugu">Telugu</option>
-            <option value="Marathi">Marathi</option>
-            <option value="Tamil">Tamil</option>
-            <option value="Urdu">Urdu</option>
-            <option value="Gujarati">Gujarati</option>
-            <option value="Malayalam">Malayalam</option>
-            <option value="Kannada">Kannada</option>
-            <option value="Odia">Odia</option>
-            <option value="Punjabi">Punjabi</option>
-            <option value="Assamese">Assamese</option>
-            <option value="Maithili">Maithili</option>
-            <option value="Sanskrit">Sanskrit</option>
-            <option value="Konkani">Konkani</option>
-            <option value="Sindhi">Sindhi</option>
-            <option value="Dogri">Dogri</option>
-            <option value="Manipuri">Manipuri</option>
-            <option value="Bodo">Bodo</option>
-            <option value="Santali">Santali</option>
-            <option value="Kashmiri">Kashmiri</option>
-            <option value="Nepali">Nepali</option>
-            <option value="Sikh (Gurmukhi)">Sikh (Gurmukhi)</option>
-            <option value="Rajasthani">Rajasthani</option>
-          </select>
+            type="text"
+          />
         </div>
 
         {/* <div className="mt-6">
