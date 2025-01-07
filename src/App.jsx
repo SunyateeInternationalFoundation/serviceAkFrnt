@@ -7,13 +7,14 @@ import Register from "./components/ProviderLogin/Register";
 function App() {
   const providerDetails = useSelector((state) => state.provider);
   const isAuth = providerDetails?.isLogin;
+
   return (
     <>
       <Routes>
-        {!isAuth?(
+        {!isAuth ? (
           <>
-          <Route path="/" element={<Login />}></Route>
-          <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Login />}></Route>
+            <Route path="/register" element={<Register />} />
           </>
         ) : (
           <Route path="/*" element={<Home />}></Route>

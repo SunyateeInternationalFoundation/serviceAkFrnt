@@ -9,6 +9,7 @@ import Payments from "../Payments/Payments";
 import Reviews from "../Reviews/Reviews";
 import Account from "../Settings/Account";
 import ProfileVerification from "../Settings/ProfileVerification";
+import Navbar from "../Sidebar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
@@ -19,29 +20,32 @@ const Home = () => {
   };
 
   return (
-    <div className="flex">
-      <Sidebar onSidebarToggle={handleSidebarToggle} />
-      <div
-        className={`flex-1 ${
-          isSidebarClosed ? "ml-20" : "ml-64"
-        } bg-gray-100 min-h-screen transition-all duration-300`}
-      >
-        <div className="p-4">
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/my-services" element={<MyServices />} />
-            <Route path="job-execution" element={<JobExecution />} />
-            <Route path="/job-requests" element={<JobRequests />} />
-            <Route path="/payments" element={<Payments />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route
-              path="/settings/verification"
-              element={<ProfileVerification />}
-            />
-            <Route path="/settings/account" element={<Account />} />
-          </Routes>
-          <Outlet />
-        </div>
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <div className="flex flex-1">
+        <Sidebar onSidebarToggle={handleSidebarToggle} />
+        <main
+          className={`flex-1 overflow-y-auto bg-gray-100 transition-all duration-300 ${
+            isSidebarClosed ? "ml-20" : "ml-64"
+          }`}
+        >
+          <div className="p-4">
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/my-services" element={<MyServices />} />
+              <Route path="/job-execution" element={<JobExecution />} />
+              <Route path="/job-requests" element={<JobRequests />} />
+              <Route path="/payments" element={<Payments />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route
+                path="/settings/verification"
+                element={<ProfileVerification />}
+              />
+              <Route path="/settings/account" element={<Account />} />
+            </Routes>
+            <Outlet />
+          </div>
+        </main>
       </div>
     </div>
   );

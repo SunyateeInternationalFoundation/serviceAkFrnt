@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CiLogout } from "react-icons/ci";
 import {
   FaBriefcase,
   FaChartBar,
@@ -14,6 +15,7 @@ import { MdManageAccounts, MdVerified } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setProviderLogout } from "../../store/ProviderSlice";
+
 const Sidebar = ({ onSidebarToggle }) => {
   const [isClose, setIsClose] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -28,6 +30,13 @@ const Sidebar = ({ onSidebarToggle }) => {
     { name: "Job Execution", path: "/job-execution", icon: <FaTools /> },
     { name: "Payments", path: "/payouts", icon: <FaMoneyBillAlt /> },
     { name: "Reviews", path: "/reviews", icon: <FaStar /> },
+    {
+      name: "Logout",
+      icon: <CiLogout />,
+      onClick: () => {
+        handleLogout;
+      },
+    },
   ];
 
   const settingsItems = [
@@ -41,7 +50,7 @@ const Sidebar = ({ onSidebarToggle }) => {
 
   function handleLogout() {
     dispatch(setProviderLogout());
-    window.location.href = "http://localhost:3000";
+    window.location.href = "/";
   }
 
   const toggleSidebar = () => {
@@ -53,47 +62,52 @@ const Sidebar = ({ onSidebarToggle }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 flex flex-col ${
+      className={`fixed left-0 flex flex-col ${
         isClose ? "w-20" : "w-64"
-      } text-white transition-all duration-300 shadow-lg overflow-y-auto h-screen`}
+      } text-white transition-all duration-300 overflow-y-auto h-fit`}
     >
-      <div className="flex items-center justify-between p-4 border-b border-white">
-        {!isClose && (
+      {/* className={`flex flex-col ${
+        isClose ? "w-20" : "w-64"
+      } bg-white text-pink-500 transition-all duration-300 shadow-lg overflow-y-auto h-full`} */}
+
+      <div className="flex items-center justify-end p-2 border-b border-white">
+        {/* {!isClose && (
           <div className="flex items-center space-x-2">
             <h2 className="text-2xl font-bold text-pink-500">Services</h2>
           </div>
-        )}
-        <button
-          className="p-2 rounded-md bg-pink-600 hover:bg-pink-700"
-          onClick={toggleSidebar}
-        >
-          {isClose ? <FaChevronRight /> : <FaChevronLeft />}
+        )} */}
+        <button className="p-2 rounded-md text-black" onClick={toggleSidebar}>
+          {isClose ? (
+            <FaChevronRight className="ml-[-40px]" />
+          ) : (
+            <FaChevronLeft />
+          )}
         </button>
       </div>
-      <hr />
+      {/* <hr />//${
+                // location.pathname === item.path ? "bg-pink-700" : ""
+              } */}
       <div className="flex flex-col p-4 space-y-4 overflow-y-auto flex-grow">
         {menuItems.map((item, index) => (
           <Link key={index} to={item.path} className="cursor-pointer">
             <div
-              className={`group flex items-center space-x-4 p-2 rounded-md transition-all duration-300 ${
-                location.pathname === item.path ? "bg-pink-700" : ""
-              } hover:bg-pink-700`}
+              className={`group flex items-center space-x-4 p-2 rounded-md transition-all duration-300`}
             >
               <span
-                className={`text-lg group-hover:text-white ${
+                className={`text-lg  ${
                   location.pathname === item.path
-                    ? "text-white"
-                    : "text-pink-500 "
+                    ? "text-pink-500 "
+                    : "text-black "
                 }`}
               >
                 {item.icon}
               </span>
               {!isClose && (
                 <span
-                  className={`group-hover:text-white ${
+                  className={` ${
                     location.pathname === item.path
-                      ? "text-white"
-                      : "text-pink-500 "
+                      ? "text-pink-500 "
+                      : "text-black "
                   }`}
                 >
                   {item.name}
@@ -105,15 +119,13 @@ const Sidebar = ({ onSidebarToggle }) => {
 
         <div>
           <div
-            className="group flex items-center space-x-4 p-2 rounded-md cursor-pointer hover:bg-pink-700"
+            className="group flex items-center space-x-4 p-2 rounded-md cursor-pointer"
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
           >
-            <FaCog className="text-lg text-pink-500 group-hover:text-white" />
+            <FaCog className="text-lg text-black" />
             {!isClose && (
               <span
-                className={`group-hover:text-white ${
-                  isSettingsOpen ? "text-pink-500" : "text-pink-500"
-                }`}
+                className={` ${isSettingsOpen ? "text-black" : "text-black"}`}
               >
                 Settings
               </span>
@@ -126,14 +138,14 @@ const Sidebar = ({ onSidebarToggle }) => {
                   key={index}
                   to={item.path}
                   className={`group flex items-center space-x-4 p-2 rounded-md transition-all duration-300 mb-1 ${
-                    location.pathname === item.path ? "bg-pink-700" : ""
-                  } hover:bg-pink-700`}
+                    location.pathname === item.path ? "text-pink-700" : ""
+                  }`}
                 >
                   <span
-                    className={`group-hover:text-white ${
+                    className={` ${
                       location.pathname === item.path
-                        ? "text-white"
-                        : "text-pink-500 "
+                        ? "text-pink-500 "
+                        : "text-black "
                     }`}
                   >
                     {isClose ? (
