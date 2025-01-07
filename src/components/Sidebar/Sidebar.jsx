@@ -1,25 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   FaBriefcase,
   FaChartBar,
   FaChevronLeft,
   FaChevronRight,
+  FaCog,
   FaMoneyBillAlt,
   FaStar,
   FaTools,
 } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-// import { setAdminLogout } from "../../store/AdminSlice";
+import { useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { setProviderLogout } from "../../store/ProviderSlice";
 
 const Sidebar = () => {
   const [isClose, setIsClose] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  console.log("location", location);
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: <FaChartBar /> },
     { name: "My Services", path: "/my-services", icon: <FaTools /> },
@@ -29,21 +29,14 @@ const Sidebar = () => {
     { name: "Reviews", path: "/reviews", icon: <FaStar /> },
   ];
 
-  const settingsRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
+  const settingsItems = [
+    { name: "Account", path: "/settings/account" },
+    { name: "Profile Verification", path: "/settings/verification" },
+  ];
+  function handleLogout() {
+    dispatch(setProviderLogout());
+    window.location.href = "http://localhost:3000";
+  }
   return (
     <div
       className={`flex flex-col ${
@@ -58,7 +51,10 @@ const Sidebar = () => {
         )}
         <button
           className="p-2 rounded-md bg-pink-600 hover:bg-pink-700"
-          onClick={() => setIsClose(!isClose)}
+          onClick={() => {
+            setIsClose(!isClose);
+            setIsSettingsOpen(false);
+          }}
         >
           {isClose ? <FaChevronRight /> : <FaChevronLeft />}
         </button>
@@ -73,7 +69,7 @@ const Sidebar = () => {
               } hover:bg-pink-700`}
             >
               <span
-                className={`text-lg  group-hover:text-white ${
+                className={`text-lg group-hover:text-white ${
                   location.pathname === item.path
                     ? "text-white"
                     : "text-pink-500 "
@@ -95,46 +91,56 @@ const Sidebar = () => {
             </div>
           </Link>
         ))}
-      </div>
 
-      {/* <div className="mt-auto p-4 border-t border-white flex items-center justify-between relative">
-        {!isClose && (
-          <div ref={settingsRef}>
-            <button
-              className="flex items-center space-x-4 hover:bg-pink-700 p-2 rounded-md transition-all duration-300"
-              onClick={() => setIsOpen((prev) => !prev)}
-            >
-              <IoIosSettings className="text-lg mr-2 text-pink-300" />
-              <span className="text-pink-300">Settings</span>
-            </button>
-
-            {isOpen && (
-              <div className="absolute bottom-14 right-14 bg-white shadow-md border rounded-md w-40 z-50">
-                <button
-                  className="flex w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  //   onClick={() => {
-                  //     setIsOpen(false);
-                  //     navigate("/admin-profile");
-                  //   }}
-                >
-                  <span className="text-pink-500">Profile</span>
-                  <FaUser className="mt-1 ml-2" />
-                </button>
-                <button
-                  className="flex w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  //   onClick={() => {
-                  //     dispatch(setAdminLogout());
-                  //     window.location.href = "http://localhost:3000";
-                  //   }}
-                >
-                  <span className="text-pink-500">Log Out</span>
-                  <FiLogOut className="mt-1 ml-2" />
-                </button>
-              </div>
+        <div>
+          <div
+            className="group flex items-center space-x-4 p-2 rounded-md cursor-pointer hover:bg-pink-700"
+            onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+          >
+            <FaCog className="text-lg text-pink-500 group-hover:text-white" />
+            {!isClose && (
+              <span
+                className={`group-hover:text-white ${
+                  isSettingsOpen ? "text-pink-500" : "text-pink-500"
+                }`}
+              >
+                Settings
+              </span>
             )}
           </div>
-        )}
-      </div> */}
+          {isSettingsOpen && (
+            <div className="ml-8">
+              {settingsItems.map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.path}
+                  className={`group flex items-center space-x-4 p-2 rounded-md transition-all duration-300 mb-1 ${
+                    location.pathname === item.path ? "bg-pink-700" : ""
+                  } hover:bg-pink-700`}
+                >
+                  <span
+                    className={`group-hover:text-white ${
+                      location.pathname === item.path
+                        ? "text-white"
+                        : "text-pink-500 "
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mt-auto p-4">
+        <button
+          className="w-full p-2 rounded-md bg-pink-600 hover:bg-pink-700 text-white"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

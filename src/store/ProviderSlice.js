@@ -48,7 +48,7 @@ const ProviderSlice = createSlice({
       state.isLogin = true;
       state.isRegister = false;
     },
-    setProviderLogout: (state) => {
+    setProviderLogout: (state, action) => {
       localStorage.removeItem("provider");
       state.providerId = "";
       state.email = "";

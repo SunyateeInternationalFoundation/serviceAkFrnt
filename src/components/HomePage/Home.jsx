@@ -6,6 +6,8 @@ import JobRequests from "../JobRequests/JobRequests";
 import MyServices from "../MyServices/MyServices";
 import Payments from "../Payments/Payments";
 import Reviews from "../Reviews/Reviews";
+import Account from "../Settings/Account";
+import ProfileVerification from "../Settings/ProfileVerification";
 import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
@@ -23,6 +25,11 @@ const Home = () => {
             <Route path="/job-requests" element={<JobRequests />} />
             <Route path="/payments" element={<Payments />} />
             <Route path="/reviews" element={<Reviews />} />
+            <Route
+              path="/settings/verification"
+              element={<ProfileVerification />}
+            />
+            <Route path="/settings/account" element={<Account />} />
           </Routes>
           <Outlet />
         </div>
