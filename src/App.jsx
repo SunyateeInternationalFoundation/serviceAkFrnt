@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Routes>
-        {!isAuth ? (
+        {!isAuth?(
           <>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />} />
