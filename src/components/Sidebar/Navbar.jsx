@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBell, FaGlobe, FaMoon, FaUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setProviderLogout } from "../../store/ProviderSlice";
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const dispatch = useDispatch();
-
+  const logoutRef = useRef();
   const handleLogout = () => {
     dispatch(setProviderLogout());
     window.location.href = "/";
@@ -15,6 +15,18 @@ const Navbar = () => {
     setShowLogout(!showLogout);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (logoutRef.current && !logoutRef.current.contains(event.target)) {
+        setShowLogout(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-4 py-1 bg-white z-50 border border-b">
       <div className="ml-8 text-pink-600 font-bold text-2xl">
@@ -46,22 +58,24 @@ const Navbar = () => {
         <button className="text-gray-600 hover:text-gray-900">
           <FaBell size={15} />
         </button>
-        <button
-          className="text-gray-600 hover:text-gray-900"
-          onClick={toggleLogoutMenu}
-        >
-          <FaUserCircle size={15} />
-        </button>
-        {showLogout && (
-          <div className="absolute right-2 top-10 mt-2 w-32 bg-white border rounded-md shadow-lg">
-            <button
-              onClick={handleLogout}
-              className="block w-full text-left px-2 py-1 text-sm text-gray-600 hover:bg-gray-100"
-            >
-              Logout
-            </button>
-          </div>
-        )}
+        <div ref={logoutRef} className="relative">
+          <button
+            className="text-gray-600 hover:text-gray-900"
+            onClick={toggleLogoutMenu}
+          >
+            <FaUserCircle size={15} />
+          </button>
+          {showLogout && (
+            <div className="absolute right-0 top-full mt-2 w-32 bg-white border rounded-md shadow-lg">
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-2 py-1 text-sm text-gray-600 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
