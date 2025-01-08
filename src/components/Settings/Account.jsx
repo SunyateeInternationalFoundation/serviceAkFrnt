@@ -22,7 +22,7 @@ function Account() {
     languages: [],
     services: [],
   });
-  const [allServices, setAllServices] =useState([])
+  const [allServices, setAllServices] = useState([]);
   const providerId = useSelector((state) => state.provider).providerId;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -31,9 +31,16 @@ function Account() {
       .get(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`)
       .then((response) => {
         console.log("response", response.data.data);
-        console.log("response", response.data.services)
+        console.log("response", response.data.services);
         setUserData(response.data.data);
-        setAllServices(response.data.services)
+        setAllServices(
+          response.data.services.map((ser) => {
+            return {
+              value: ser._id,
+              label: ser.name,
+            };
+          })
+        );
       })
       .catch((error) => {
         console.error("There was an error fetching the user data!", error);
@@ -78,30 +85,30 @@ function Account() {
   //   setUserData({ ...userData, languages: selectedLanguages });
   // };
   const languages = [
-    { value: 1, label: "Assamese" },
-    { value: 2, label: "Bengali" },
-    { value: 3, label: "Bodo" },
-    { value: 4, label: "Dogri" },
-    { value: 5, label: "Gujarati" },
-    { value: 6, label: "Hindi" },
-    { value: 7, label: "Kannada" },
-    { value: 8, label: "Kashmiri" },
-    { value: 9, label: "Konkani" },
-    { value: 10, label: "Maithili" },
-    { value: 11, label: "Malayalam" },
-    { value: 12, label: "Manipuri" },
-    { value: 13, label: "Marathi" },
-    { value: 14, label: "Nepali" },
-    { value: 15, label: "Odia" },
-    { value: 16, label: "Punjabi" },
-    { value: 17, label: "Sanskrit" },
-    { value: 18, label: "Santali" },
-    { value: 19, label: "Sindhi" },
-    { value: 20, label: "Tamil" },
-    { value: 21, label: "Telugu" },
-    { value: 22, label: "Urdu" },
-    { value: 23, label: "English" },
-    { value: 24, label: "Hindi" },
+    { value: "Assamese", label: "Assamese" },
+    { value: "Bengali", label: "Bengali" },
+    { value: "Bodo", label: "Bodo" },
+    { value: "Dogri", label: "Dogri" },
+    { value: "Gujarati", label: "Gujarati" },
+    { value: "Hindi", label: "Hindi" },
+    { value: "Kannada", label: "Kannada" },
+    { value: "Kashmiri", label: "Kashmiri" },
+    { value: "Konkani", label: "Konkani" },
+    { value: "Maithili", label: "Maithili" },
+    { value: "Malayalam", label: "Malayalam" },
+    { value: "Manipuri", label: "Manipuri" },
+    { value: "Marathi", label: "Marathi" },
+    { value: "Nepali", label: "Nepali" },
+    { value: "Odia", label: "Odia" },
+    { value: "Punjabi", label: "Punjabi" },
+    { value: "Sanskrit", label: "Sanskrit" },
+    { value: "Santali", label: "Santali" },
+    { value: "Sindhi", label: "Sindhi" },
+    { value: "Tamil", label: "Tamil" },
+    { value: "Telugu", label: "Telugu" },
+    { value: "Urdu", label: "Urdu" },
+    { value: "English", label: "English" },
+    { value: "Hindi", label: "Hindi" },
   ];
 
   const toggleEditMode = () => {
@@ -414,7 +421,7 @@ function Account() {
           </label>
           <Select
             options={allServices}
-            value={serviceOptions?.filter(
+            value={allServices?.filter(
               (option) =>
                 Array.isArray(userData.services) &&
                 userData.services.includes(option.value)
