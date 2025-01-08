@@ -22,6 +22,7 @@ function Account() {
     languages: "",
     services: [],
   });
+  const [allServices, setAllServices] =useState([])
   const providerId = useSelector((state) => state.provider).providerId;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +31,9 @@ function Account() {
       .get(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`)
       .then((response) => {
         console.log("response", response.data.data);
+        console.log("response", response.data.services)
         setUserData(response.data.data);
+        setAllServices(response.data.services)
       })
       .catch((error) => {
         console.error("There was an error fetching the user data!", error);
