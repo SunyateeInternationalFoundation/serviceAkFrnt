@@ -8,6 +8,7 @@ import MyServices from "../MyServices/MyServices";
 import Payments from "../Payments/Payments";
 import Reviews from "../Reviews/Reviews";
 import Account from "../Settings/Account";
+import Appointments from "../Settings/Appointments";
 import ProfileVerification from "../Settings/ProfileVerification";
 import Navbar from "../Sidebar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
@@ -42,6 +43,7 @@ const Home = () => {
                 element={<ProfileVerification />}
               />
               <Route path="/settings/account" element={<Account />} />
+              <Route path="/settings/appointments" element={<Appointments />} />
             </Routes>
             <Outlet />
           </div>

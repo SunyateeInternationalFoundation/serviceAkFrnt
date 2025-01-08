@@ -38,7 +38,7 @@ const Reviews = () => {
   ]);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 mt-5">
       <h2 className="text-2xl font-semibold mb-6">Reviews</h2>
       <div className="space-y-6">
         {reviews.map((review) => (

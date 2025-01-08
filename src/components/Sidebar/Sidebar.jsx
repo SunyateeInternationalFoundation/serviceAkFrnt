@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CiLogout } from "react-icons/ci";
 import {
   FaBriefcase,
   FaChartBar,
@@ -9,9 +8,8 @@ import {
   FaMoneyBillAlt,
   FaStar,
   FaTools,
-  FaUserCircle,
 } from "react-icons/fa";
-import { MdManageAccounts, MdVerified } from "react-icons/md";
+import { MdLogout, MdManageAccounts, MdVerified } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setProviderLogout } from "../../store/ProviderSlice";
@@ -30,13 +28,6 @@ const Sidebar = ({ onSidebarToggle }) => {
     { name: "Job Execution", path: "/job-execution", icon: <FaTools /> },
     { name: "Payments", path: "/payouts", icon: <FaMoneyBillAlt /> },
     { name: "Reviews", path: "/reviews", icon: <FaStar /> },
-    {
-      name: "Logout",
-      icon: <CiLogout />,
-      onClick: () => {
-        handleLogout;
-      },
-    },
   ];
 
   const settingsItems = [
@@ -44,6 +35,11 @@ const Sidebar = ({ onSidebarToggle }) => {
     {
       name: "Profile Verification",
       path: "/settings/verification",
+      icon: <MdVerified />,
+    },
+    {
+      name: "Appointments",
+      path: "/settings/appointments",
       icon: <MdVerified />,
     },
   ];
@@ -64,7 +60,7 @@ const Sidebar = ({ onSidebarToggle }) => {
     <div
       className={`fixed left-0 flex flex-col ${
         isClose ? "w-20" : "w-64"
-      } text-white transition-all duration-300 overflow-y-auto h-fit`}
+      } text-white transition-all duration-300 overflow-y-auto h-fit mt-10`}
     >
       {/* className={`flex flex-col ${
         isClose ? "w-20" : "w-64"
@@ -159,8 +155,16 @@ const Sidebar = ({ onSidebarToggle }) => {
             </div>
           )}
         </div>
+
+        <div
+          className="group flex items-center space-x-4 p-2 rounded-md cursor-pointer transition-all duration-300"
+          onClick={handleLogout}
+        >
+          <MdLogout className="text-lg text-black" />
+          {!isClose && <span className="text-black">Logout</span>}
+        </div>
       </div>
-      <div className="mt-auto p-4">
+      {/* <div className="mt-4">
         {isClose ? (
           <button className="p-2">
             <FaUserCircle className="text-xl text-pink-500 hover:text-pink-700" />
@@ -173,7 +177,7 @@ const Sidebar = ({ onSidebarToggle }) => {
             Logout
           </button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
