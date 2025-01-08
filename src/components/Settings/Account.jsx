@@ -77,17 +77,6 @@ function Account() {
   //   }
   //   setUserData({ ...userData, languages: selectedLanguages });
   // };
-  const serviceOptions = [
-    { value: 1, label: "Books" },
-    { value: 2, label: "Movies, Music & Games" },
-    { value: 3, label: "Electronics & Computers" },
-    { value: 4, label: "Home, Garden & Tools" },
-    { value: 5, label: "Health & Beauty" },
-    { value: 6, label: "Toys, Kids & Baby" },
-    { value: 7, label: "Clothing & Jewelry" },
-    { value: 8, label: "Sports & Outdoors" },
-    { value: 9, label: "Automotive & Industrial" },
-  ];
   const languages = [
     { value: 1, label: "Assamese" },
     { value: 2, label: "Bengali" },
@@ -424,7 +413,7 @@ function Account() {
             Services
           </label>
           <Select
-            options={serviceOptions}
+            options={allServices}
             value={serviceOptions?.filter(
               (option) =>
                 Array.isArray(userData.services) &&
