@@ -54,9 +54,7 @@ const JobRequests = () => {
         "You have successfully accepted the job request. Please prepare for the session."
       );
     } else if (action === "Rejected") {
-      toast.error(
-        "The job request has been rejected. The parent will be notified."
-      );
+      toast.error("The job request has been rejected.");
     }
   };
   return (
