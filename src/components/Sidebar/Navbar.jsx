@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-4 py-1 bg-white z-50">
+    <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-4 py-1 bg-white z-50 border border-b">
       <div className="ml-8 text-pink-600 font-bold text-2xl">
         {/* <img
           src="https://ausumkids.com/wp-content/uploads/2024/08/Untitled-design-6-e1723961711858.png"
