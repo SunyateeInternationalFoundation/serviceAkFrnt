@@ -145,7 +145,7 @@ const Sidebar = ({ onSidebarToggle }) => {
                     }`}
                   >
                     {isClose ? (
-                      <span className="ml-[-200px]">{item.icon}</span>
+                      <span>{item.icon}</span>
                     ) : (
                       <span>{item.name}</span>
                     )}

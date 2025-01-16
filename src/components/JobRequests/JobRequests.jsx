@@ -1,79 +1,122 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const jobRequestsData = [
-  {
-    id: 1,
-    service: "Autism Therapy",
-    status: "Rejected",
-    bookingDate: "27 Sep, 17:00-18:00",
-    amount: "₹100.00",
+// const jobRequestsData = [
+//   {
+//     id: 1,
+//     service: "Autism Therapy",
+//     status: "Rejected",
+//     bookingDate: "27 Sep, 17:00-18:00",
+//     amount: "₹100.00",
 
-    location: "hyd",
-    parent: "John Doe",
-    contact: "info@johndoe.com",
-    phone: "1234567890",
-  },
-  {
-    id: 2,
-    service: "Speech Therapy",
-    status: "Accepted",
-    bookingDate: "23 Sep 2022, 10:00-11:00",
-    amount: "₹50.00",
+//     location: "hyd",
+//     parent: "John Doe",
+//     contact: "info@johndoe.com",
+//     phone: "1234567890",
+//   },
+//   {
+//     id: 2,
+//     service: "Speech Therapy",
+//     status: "Accepted",
+//     bookingDate: "23 Sep 2022, 10:00-11:00",
+//     amount: "₹50.00",
 
-    location: "Tamil Nadu",
-    parent: "Jane Smith",
-    contact: "info@janesmith.com",
-    phone: "9876543210",
-  },
-  {
-    id: 3,
-    service: "Special Education",
-    status: "Rejected",
-    bookingDate: "22 Sep 2022, 11:00-12:00",
-    amount: "₹50.00",
-    location: "Andhra",
-    parent: "Quentin Blake",
-    contact: "info@quentin.com",
-    phone: "3454868777",
-  },
-];
+//     location: "Tamil Nadu",
+//     parent: "Jane Smith",
+//     contact: "info@janesmith.com",
+//     phone: "9876543210",
+//   },
+//   {
+//     id: 3,
+//     service: "Special Education",
+//     status: "Rejected",
+//     bookingDate: "22 Sep 2022, 11:00-12:00",
+//     amount: "₹50.00",
+//     location: "Andhra",
+//     parent: "Quentin Blake",
+//     contact: "info@quentin.com",
+//     phone: "3454868777",
+//   },
+// ];
 
 const JobRequests = () => {
-  const providerId = useSelector((state)=> state.provider.providerId)
-  
-  const [jobRequests, setJobRequests] = useState(jobRequestsData);
+  const providerId = useSelector((state) => state.provider.providerId);
+  const navigate = useNavigate();
+  const [jobRequests, setJobRequests] = useState([]);
 
   useEffect(() => {
     const fetchJobRequests = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_WEBSITE}/my-bookings/${providerId}`,);
-        const filteredBookings = res.data.data.filter(booking => booking.accepted === false && booking.status === "On Going")
-        setJobRequests(filteredBookings); 
+        const res = await axios.get(
+          `${import.meta.env.VITE_WEBSITE}/my-bookings/${providerId}`
+        );
+        const filteredBookings = res.data.data.filter(
+          (booking) =>
+            booking.accepted === false && booking.status === "On Going"
+        );
+        setJobRequests(filteredBookings);
       } catch (error) {
         console.error("Error fetching job requests:", error);
         toast.error("Failed to fetch job requests. Please try again.");
-        
       }
     };
     if (providerId) fetchJobRequests();
   }, [providerId]);
 
+  // const handleAction = async (id, status) => {
+  //   try {
+  //     console.log(id, status);
+  //     await axios.patch(
+  //       `${import.meta.env.VITE_WEBSITE}/update-booking-status`,
+  //       {
+  //         id,
+  //         status,
+  //       }
+  //     );
+  //     toast.success(`Booking status updated to ${status}.`);
+  //     setJobRequests((prev) =>
+  //       prev.map((request) =>
+  //         request.id === id ? { ...request, status } : request
+  //       )
+  //     );
+  //   } catch (error) {
+  //     toast.error("Failed to update booking status. Please try again.");
+  //   }
+  // };
   const handleAction = async (id, status) => {
     try {
       console.log(id, status);
-      await axios.patch(`${import.meta.env.VITE_WEBSITE}/update-booking-status`, {
-        id,
-        status,
-      });
-      toast.success(`Booking status updated to ${status}.`);
+      const res = await axios.patch(
+        `${import.meta.env.VITE_WEBSITE}/update-booking-status`,
+        {
+          id,
+          status,
+        }
+      );
+      console.log("response", res);
+      toast.success(
+        `Booking status updated to ${
+          status === "true" ? "Accepted" : "Cancelled"
+        }.`
+      );
       setJobRequests((prev) =>
         prev.map((request) =>
-          request.id === id ? { ...request, status } : request
+          request.id === id
+            ? {
+                ...request,
+                status: status === "true" ? "On Going" : "Cancelled",
+              }
+            : request
         )
       );
+      if (status === "true") {
+        navigate("/my-services");
+      } else {
+        navigate("/job-execution");
+      }
     } catch (error) {
       toast.error("Failed to update booking status. Please try again.");
     }
