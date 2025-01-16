@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const jobRequestsData = [
@@ -40,23 +42,43 @@ const jobRequestsData = [
 ];
 
 const JobRequests = () => {
+  const providerId = useSelector((state)=> state.provider.providerId)
+  
   const [jobRequests, setJobRequests] = useState(jobRequestsData);
 
-  const handleAction = (id, action) => {
-    const updatedRequests = jobRequests.map((req) =>
-      req.id === id ? { ...req, status: action } : req
-    );
+  useEffect(() => {
+    const fetchJobRequests = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_WEBSITE}/my-bookings/${providerId}`,);
+        const filteredBookings = res.data.data.filter(booking => booking.accepted === false && booking.status === "On Going")
+        setJobRequests(filteredBookings); 
+      } catch (error) {
+        console.error("Error fetching job requests:", error);
+        toast.error("Failed to fetch job requests. Please try again.");
+        
+      }
+    };
+    if (providerId) fetchJobRequests();
+  }, [providerId]);
 
-    setJobRequests(updatedRequests);
-
-    if (action === "Accepted") {
-      toast.success(
-        "You have successfully accepted the job request. Please prepare for the session."
+  const handleAction = async (id, status) => {
+    try {
+      console.log(id, status);
+      await axios.patch(`${import.meta.env.VITE_WEBSITE}/update-booking-status`, {
+        id,
+        status,
+      });
+      toast.success(`Booking status updated to ${status}.`);
+      setJobRequests((prev) =>
+        prev.map((request) =>
+          request.id === id ? { ...request, status } : request
+        )
       );
-    } else if (action === "Rejected") {
-      toast.error("The job request has been rejected.");
+    } catch (error) {
+      toast.error("Failed to update booking status. Please try again.");
     }
   };
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <ToastContainer />
@@ -66,7 +88,7 @@ const JobRequests = () => {
       <div className="space-y-4">
         {jobRequests.map((request) => (
           <div
-            key={request.id}
+            key={request._id}
             className="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row justify-between items-start md:items-center"
           >
             <div className="flex items-start space-x-4">
@@ -87,7 +109,7 @@ const JobRequests = () => {
                   {request.status}
                 </span>
                 <p className="mt-2 text-sm text-gray-600">
-                  <strong>Booking Date:</strong> {request.bookingDate}
+                  <strong>Booking Date:</strong> {request.date}
                 </p>
                 <p className="mt-1 text-sm text-gray-600">
                   <strong>Amount:</strong> {request.amount}
@@ -114,13 +136,13 @@ const JobRequests = () => {
               ) : (
                 <>
                   <button
-                    onClick={() => handleAction(request.id, "Accepted")}
+                    onClick={() => handleAction(request._id, "true")}
                     className="bg-[#0d9488] text-white px-3 py-1 rounded"
                   >
                     Accept
                   </button>
                   <button
-                    onClick={() => handleAction(request.id, "Rejected")}
+                    onClick={() => handleAction(request._id, "false")}
                     className="bg-[#f43f5e] text-white px-3 py-1 rounded"
                   >
                     Reject
