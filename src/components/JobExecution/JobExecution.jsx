@@ -1,44 +1,64 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const JobExecutionData = [
-  {
-    id: 1,
-    service: "Autism Therapy",
-    bookingDate: "27 Sep, 17:00-18:00",
-    amount: "₹100.00",
-    location: "hyd",
-    parent: "John Doe",
-    contact: "info@johndoe.com",
-    phone: "1234567890",
-    status: "Completed",
-  },
-  {
-    id: 2,
-    service: "Speech Therapy",
-    bookingDate: "23 Sep 2022, 10:00-11:00",
-    amount: "₹50.00",
-    location: "Tamil Nadu",
-    parent: "Jane Smith",
-    contact: "info@janesmith.com",
-    phone: "9876543210",
-    status: "Rejected",
-  },
-  {
-    id: 3,
-    service: "Special Education",
-    bookingDate: "22 Sep 2022, 11:00-12:00",
-    amount: "₹50.00",
-    location: "Andhra",
-    parent: "Quentin Blake",
-    contact: "info@quentin.com",
-    phone: "3454868777",
-    status: "Rejected",
-  },
-];
+// const JobExecutionData = [
+//   {
+//     id: 1,
+//     service: "Autism Therapy",
+//     bookingDate: "27 Sep, 17:00-18:00",
+//     amount: "₹100.00",
+//     location: "hyd",
+//     parent: "John Doe",
+//     contact: "info@johndoe.com",
+//     phone: "1234567890",
+//     status: "Completed",
+//   },
+//   {
+//     id: 2,
+//     service: "Speech Therapy",
+//     bookingDate: "23 Sep 2022, 10:00-11:00",
+//     amount: "₹50.00",
+//     location: "Tamil Nadu",
+//     parent: "Jane Smith",
+//     contact: "info@janesmith.com",
+//     phone: "9876543210",
+//     status: "Rejected",
+//   },
+//   {
+//     id: 3,
+//     service: "Special Education",
+//     bookingDate: "22 Sep 2022, 11:00-12:00",
+//     amount: "₹50.00",
+//     location: "Andhra",
+//     parent: "Quentin Blake",
+//     contact: "info@quentin.com",
+//     phone: "3454868777",
+//     status: "Rejected",
+//   },
+// ];
 
 const JobExecution = () => {
-  const [jobExecution, setJobExecution] = useState(JobExecutionData);
+  const [jobExecution, setJobExecution] = useState([]);
+  const providerId = useSelector((state) => state.provider.providerId);
 
+  useEffect(() => {
+    const fetchJobExecution = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_WEBSITE}/my-bookings/${providerId}`
+        );
+        const filteredBookings = res.data.data.filter(
+          (booking) =>
+            booking.accepted === false && booking.status === "Cancelled"
+        );
+        setJobExecution(filteredBookings);
+      } catch (error) {
+        console.error("Error fetching job requests:", error);
+      }
+    };
+    fetchJobExecution();
+  }, [providerId]);
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="flex justify-between items-center mb-6">

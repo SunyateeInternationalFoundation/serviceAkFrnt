@@ -1,5 +1,5 @@
 import React from "react";
-import { FiFileText, FiMail, FiPhone, FiTrash } from "react-icons/fi";
+import { FiFileText, FiMail, FiPhone } from "react-icons/fi";
 
 const ProfileVerification = () => {
   return (
@@ -27,15 +27,15 @@ const ProfileVerification = () => {
               <button className="bg-black text-white px-2 py-1 rounded-lg mr-2">
                 Verify
               </button>
-              <button className="text-red-500 px-2 py-2">
+              {/* <button className="text-red-500 px-2 py-2">
                 <FiTrash className="text-lg" />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 shadow-sm bg-white">
-          <div className="flex items-center mb-3">
+        <div className="border rounded-lg p-6 shadow-sm bg-white">
+          <div className="flex items-center mb-4">
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
               <FiMail className="text-gray-700 text-lg" />
             </div>
@@ -48,8 +48,8 @@ const ProfileVerification = () => {
               </p>
             </div>
           </div>
-          <hr className="border-t border-gray-300 mb-3" />
-          <div className="flex items-center justify-between">
+          <hr className="border-t border-gray-300 mb-4" />
+          <div className="mt-4 flex items-center justify-between">
             <span className="text-red-700 font-semibold bg-red-200 mr-2 rounded-sm px-1">
               • Not Verified
             </span>
@@ -57,15 +57,15 @@ const ProfileVerification = () => {
               <button className="bg-black text-white px-2 py-1 rounded-lg mr-2">
                 Verify
               </button>
-              <button className="text-red-500 px-2 py-2">
+              {/* <button className="text-red-500 px-2 py-2">
                 <FiTrash className="text-lg" />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 shadow-sm bg-white">
-          <div className="flex items-center mb-3">
+        <div className="border rounded-lg p-6 shadow-sm bg-white">
+          <div className="flex items-center mb-4">
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
               <FiFileText className="text-gray-700 text-lg" />
             </div>
@@ -79,8 +79,8 @@ const ProfileVerification = () => {
               </p>
             </div>
           </div>
-          <hr className="border-t border-gray-300 mb-3" />
-          <div className="flex items-center justify-between">
+          <hr className="border-t border-gray-300 mb-4" />
+          <div className="mt-4 flex items-center justify-between">
             <span className="text-red-700 font-semibold bg-red-200 mr-2 rounded-sm px-1">
               • Not Verified
             </span>
@@ -88,9 +88,9 @@ const ProfileVerification = () => {
               <button className="bg-black text-white px-2 py-1 rounded-lg mr-2">
                 Upload Document
               </button>
-              <button className="text-red-500 px-2 py-2">
+              {/* <button className="text-red-500 px-2 py-2">
                 <FiTrash className="text-lg" />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
