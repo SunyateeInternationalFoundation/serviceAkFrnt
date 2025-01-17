@@ -9,7 +9,7 @@ export default function Appointments() {
   const [availableHours, setAvailableHours] = useState("");
 
   return (
-    <div className="p-8 max-w-screen mx-auto">
+    <div className="p-6 bg-gray-100 min-h-screen">
       <h2 className="text-xl font-bold text-gray-900 mb-6">
         Appointment Settings
       </h2>

@@ -3,6 +3,26 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  // const [myServices, setMyServices] = useState([]);
+
+  // const providerId = useSelector((state) => state.provider.providerId);
+  // useEffect(() => {
+  //   const fetchMyServices = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `${import.meta.env.VITE_WEBSITE}/my-bookings/${providerId}`
+  //       );
+  //       const filteredBookings = res.data.data.filter(
+  //         (booking) =>
+  //           booking.accepted === true && booking.status === "On Going"
+  //       );
+  //       setMyServices(filteredBookings);
+  //     } catch (error) {
+  //       console.error("Error fetching job services:", error);
+  //     }
+  //   };
+  //   fetchMyServices();
+  // }, [providerId]);
   const reviews = [
     {
       id: 1,
@@ -52,23 +72,9 @@ const Dashboard = () => {
       date: "14 Jan 2025",
       time: "1:00 PM",
     },
-    {
-      id: 3,
-      client: "Jane Smith",
-      service: "Special Education",
-      date: "14 Jan 2025",
-      time: "1:00 PM",
-    },
-    {
-      id: 4,
-      client: "Jane Smith",
-      service: "Special Education",
-      date: "14 Jan 2025",
-      time: "1:00 PM",
-    },
   ];
   return (
-    <div className="p-6 bg-gray-100 min-h-screen mt-10">
+    <div className="p-6 bg-gray-100 min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white p-4 rounded-lg shadow">
           <h3 className="text-lg font-semibold">Upcoming Appointments</h3>

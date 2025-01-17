@@ -117,7 +117,7 @@ const JobRequests = () => {
     <div className="p-6 bg-gray-100 min-h-screen">
       <ToastContainer />
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Job Requests</h1>
+        <h1 className="text-2xl font-bold">New Therapies</h1>
       </div>
       <div className="space-y-4">
         {jobRequests.map((request) => (

@@ -139,7 +139,7 @@ function Account() {
   };
 
   return (
-    <div className="mt-10">
+    <div className="p-6 bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-bold mb-4 ml-10">Account Settings</h2>
       <div className="container mx-auto p-3 bg-white shadow rounded mb-10 mt-6">
         <div className="mb-4">

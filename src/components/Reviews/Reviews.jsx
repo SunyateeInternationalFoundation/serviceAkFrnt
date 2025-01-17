@@ -38,46 +38,48 @@ const Reviews = () => {
   ]);
 
   return (
-    <div className="container mx-auto p-6 mt-5">
-      <h2 className="text-2xl font-semibold mb-6">Reviews</h2>
-      <div className="space-y-6">
-        {reviews.map((review) => (
-          <div
-            key={review.id}
-            className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex gap-4 items-start"
-          >
-            <img
-              src={review.profileImage}
-              alt={review.reviewer}
-              className="w-12 h-12 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-semibold">{review.service}</h3>
-                  <p className="text-sm text-gray-500">
-                    {review.reviewer},{" "}
-                    <span className="text-gray-400">{review.date}</span>
-                  </p>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="container mx-auto p-6 mt-5">
+        <h2 className="text-2xl font-semibold mb-6">Reviews</h2>
+        <div className="space-y-6">
+          {reviews.map((review) => (
+            <div
+              key={review.id}
+              className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex gap-4 items-start"
+            >
+              <img
+                src={review.profileImage}
+                alt={review.reviewer}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div className="flex-1">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold">{review.service}</h3>
+                    <p className="text-sm text-gray-500">
+                      {review.reviewer},{" "}
+                      <span className="text-gray-400">{review.date}</span>
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {[...Array(review.rating)].map((_, index) => (
+                      <svg
+                        key={index}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        className="w-5 h-5 text-yellow-500"
+                      >
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                      </svg>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  {[...Array(review.rating)].map((_, index) => (
-                    <svg
-                      key={index}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      className="w-5 h-5 text-yellow-500"
-                    >
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                    </svg>
-                  ))}
-                </div>
+                <p className="mt-2 text-gray-700">{review.reviewText}</p>
               </div>
-              <p className="mt-2 text-gray-700">{review.reviewText}</p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
