@@ -56,7 +56,7 @@ const MyServices = () => {
         );
         setMyServices(filteredBookings);
       } catch (error) {
-        console.error("Error fetching job requests:", error);
+        console.error("Error fetching job services:", error);
       }
     };
     fetchMyServices();
@@ -133,20 +133,22 @@ const MyServices = () => {
                   className="w-24 h-24 rounded-lg object-cover"
                 />
                 <div>
-                  <h2 className="text-lg font-semibold">{service?.service}</h2>
+                  <h2 className="text-lg font-semibold">
+                    {service?.serviceId?.name}
+                  </h2>
                   <p className="mt-3 text-sm text-gray-600">
-                    <strong>Booking Date:</strong> {service?.bookingDate}
+                    <strong>Booking Date:</strong> {service.date} {service.time}
                   </p>
                   <p className="mt-1 text-sm text-gray-600">
-                    <strong>Amount:</strong> {service?.amount}
+                    <strong>Amount:</strong> {service?.serviceId?.price}
                   </p>
-                  <p className="mt-1 text-sm text-gray-600">
+                  {/* <p className="mt-1 text-sm text-gray-600">
                     <strong>Location:</strong> {service?.location}
-                  </p>
+                  </p> */}
                   <p className="mt-1 text-sm text-gray-600">
-                    <strong>Parent:</strong> {service?.parent}
-                    <strong> *</strong> {service?.contact}
-                    <strong> *</strong> {service?.phone}
+                    <strong>Parent:</strong> {service?.parentId?.name}
+                    <strong> *</strong> {service?.parentId?.email}
+                    <strong> *</strong> {service?.parentId?.phone}
                   </p>
                 </div>
               </div>
@@ -171,7 +173,7 @@ const MyServices = () => {
       {modalIsOpen && (
         <Modal
           isOpen={modalIsOpen}
-          onRequestClose={closeModal}
+          onserviceClose={closeModal}
           contentLabel="Reschedule Appointment"
           style={customStyles}
         >

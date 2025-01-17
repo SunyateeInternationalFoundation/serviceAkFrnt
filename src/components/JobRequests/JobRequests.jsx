@@ -102,16 +102,7 @@ const JobRequests = () => {
           status === "true" ? "Accepted" : "Cancelled"
         }.`
       );
-      setJobRequests((prev) =>
-        prev.map((request) =>
-          request.id === id
-            ? {
-                ...request,
-                status: status === "true" ? "On Going" : "Cancelled",
-              }
-            : request
-        )
-      );
+      setJobRequests(res.data.data);
       if (status === "true") {
         navigate("/my-services");
       } else {
@@ -121,7 +112,7 @@ const JobRequests = () => {
       toast.error("Failed to update booking status. Please try again.");
     }
   };
-
+  console.log("job requests", jobRequests);
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <ToastContainer />
@@ -141,7 +132,9 @@ const JobRequests = () => {
                 className="w-24 h-24 rounded-lg object-cover"
               />
               <div>
-                <h2 className="text-lg font-semibold">{request.service}</h2>
+                <h2 className="text-lg font-semibold">
+                  {request?.serviceId?.name}
+                </h2>
                 <span
                   className={`text-sm font-medium ${
                     request.status === "Rejected"
@@ -152,18 +145,18 @@ const JobRequests = () => {
                   {request.status}
                 </span>
                 <p className="mt-2 text-sm text-gray-600">
-                  <strong>Booking Date:</strong> {request.date}
+                  <strong>Booking Date:</strong> {request.date} {request.time}
                 </p>
                 <p className="mt-1 text-sm text-gray-600">
-                  <strong>Amount:</strong> {request.amount}
+                  <strong>Amount:</strong> {request?.serviceId?.price}
                 </p>
-                <p className="mt-1 text-sm text-gray-600">
+                {/* <p className="mt-1 text-sm text-gray-600">
                   <strong>Location:</strong> {request.location}
-                </p>
+                </p> */}
                 <p className="mt-1 text-sm text-gray-600">
-                  <strong>Parent:</strong> {request.parent}
-                  <strong> *</strong> {request.contact}
-                  <strong> *</strong> {request.phone}
+                  <strong>Parent:</strong> {request?.parentId?.name}
+                  <strong> *</strong> {request?.parentId?.email}
+                  <strong> *</strong> {request?.parentId?.phone}
                 </p>
               </div>
             </div>
