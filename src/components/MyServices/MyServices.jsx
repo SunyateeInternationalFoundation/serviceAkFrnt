@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 Modal.setAppElement("#root");
 
 // const MyservicesData = [
@@ -38,6 +40,7 @@ Modal.setAppElement("#root");
 // ];
 
 const MyServices = () => {
+  const navigate = useNavigate();
   const [myServices, setMyServices] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
@@ -123,8 +126,11 @@ const MyServices = () => {
         {myServices.length > 0 &&
           myServices.map((service) => (
             <div
-              key={service?.id}
-              className="bg-gray-50 border rounded-lg p-4 flex flex-col md:flex-row justify-between items-start md:items-center"
+              key={service?._id}
+              className="bg-gray-50 border rounded-lg p-4 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer"
+              onClick={() => {
+                navigate(`${service._id}`);
+              }}
             >
               <div className="flex items-start space-x-4">
                 <img

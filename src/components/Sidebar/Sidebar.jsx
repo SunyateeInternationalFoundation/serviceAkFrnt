@@ -404,7 +404,7 @@ const Sidebar = ({ onSidebarToggle }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-72 bg-white shadow-sm text-black flex flex-col">
+    <div className="container w-72 border-r bg-white flex flex-col h-screen">
       <div className="p-3 border-b">
         <div className="text-center">
           <div className="relative w-24 h-24 mx-auto">
