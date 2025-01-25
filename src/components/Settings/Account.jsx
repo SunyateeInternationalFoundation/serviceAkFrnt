@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import Select from "react-select";
