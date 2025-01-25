@@ -160,8 +160,12 @@ const MyServices = () => {
               </div>
               <div className="flex space-x-2 mt-4 md:mt-0">
                 <button
-                  onClick={() => openModal(service)}
-                  className="bg-[#0e7490] text-white px-3 py-1 rounded"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    openModal(service)
+                  }
+                  }
+                  className="bg-blue-500 text-white px-3 py-1 rounded"
                 >
                   Reschedule
                 </button>
