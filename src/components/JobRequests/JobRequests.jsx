@@ -109,7 +109,7 @@ const JobRequests = () => {
         navigate("/job-execution");
       }
     } catch (error) {
-      toast.error("Failed to update booking status. Please try again.");
+      toast.error("Failed to update booking status. Please try again.", error);
     }
   };
   console.log("job requests", jobRequests);
@@ -119,24 +119,28 @@ const JobRequests = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">New Therapies</h1>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 px-2 sm:px-4">
         {jobRequests.map((request) => (
           <div
             key={request._id}
-            className="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row justify-between items-start md:items-center"
+            className="bg-white shadow rounded-lg p-4 md:p-6 flex flex-col md:flex-row justify-between items-start gap-4"
           >
-            <div className="flex items-start space-x-4">
-              <img
-                src="https://www.shutterstock.com/shutterstock/photos/524271736/display_1500/stock-photo-cheerful-boy-with-disability-at-rehabilitation-center-for-kids-with-special-needs-524271736.jpg"
-                alt={request.service}
-                className="w-24 h-24 rounded-lg object-cover"
-              />
-              <div>
-                <h2 className="text-lg font-semibold">
+            <div className="flex flex-col sm:flex-row gap-4 w-full">
+              <div className="shrink-0 mx-auto sm:mx-0">
+                <img
+                  src={request?.childId?.image || "default-image-url"}
+                  alt={request.service}
+                  className="w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover rounded-lg"
+                />
+              </div>
+
+              <div className="flex-1 space-y-2 min-w-0">
+                <h2 className="text-xl md:text-xl font-semibold truncate">
                   {request?.serviceId?.name}
                 </h2>
+
                 <span
-                  className={`text-sm font-medium ${
+                  className={`text-sm md:text-base font-semibold ${
                     request.status === "Rejected"
                       ? "text-red-500"
                       : "text-green-500"
@@ -144,27 +148,40 @@ const JobRequests = () => {
                 >
                   {request.status}
                 </span>
-                <p className="mt-2 text-sm text-gray-600">
-                  <strong>Booking Date:</strong> {request.date} {request.time}
-                </p>
-                <p className="mt-1 text-sm text-gray-600">
-                  <strong>Amount:</strong> {request?.serviceId?.price}
-                </p>
-                {/* <p className="mt-1 text-sm text-gray-600">
-                  <strong>Location:</strong> {request.location}
-                </p> */}
-                <p className="mt-1 text-sm text-gray-600">
-                  <strong>Parent:</strong> {request?.parentId?.name}
-                  <strong> *</strong> {request?.parentId?.email}
-                  <strong> *</strong> {request?.parentId?.phone}
-                </p>
+
+                <div className="space-y-1 text-gray-600">
+                  <p className="text-sm md:text-base">
+                    <strong>Booking:</strong> {request.date} {request.time}
+                  </p>
+                  <p className="text-sm md:text-base">
+                    <strong>Amount:</strong> ₹{request?.serviceId?.price}
+                  </p>
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-1">
+                    <p className="text-sm md:text-base">
+                      <strong>Parent:</strong> {request?.parentId?.name}
+                      <strong> * </strong>
+                      {request?.parentId?.email}
+                      <strong> * </strong>
+                      {request?.parentId?.phone}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-1">
+                    <p className="text-sm md:text-base ">
+                      <strong>Child:</strong>{" "}
+                      {request?.childId?.basicInfo?.childFullName}
+                      <strong> * </strong>
+                      {request?.childId?.basicInfo?.dateOfBirth}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex space-x-2 mt-4 md:mt-0">
+
+            <div className="w-full md:w-auto flex flex-col sm:flex-row md:flex-col gap-2 justify-end">
               {request.status === "Cancelled" ||
               request.status === "Completed" ? (
                 <button
-                  className="bg-gray-300 text-gray-700 px-2 py-1 rounded"
+                  className="w-full md:w-32 bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm md:text-base"
                   disabled
                 >
                   No Actions
@@ -173,22 +190,16 @@ const JobRequests = () => {
                 <>
                   <button
                     onClick={() => handleAction(request._id, "true")}
-                    className="bg-[#0d9488] text-white px-3 py-1 rounded"
+                    className="w-full md:w-32 bg-blue-500 text-white px-4 py-2 rounded-lg text-sm md:text-base hover:bg-blue-600 transition-colors"
                   >
                     Accept
                   </button>
                   <button
                     onClick={() => handleAction(request._id, "false")}
-                    className="bg-[#f43f5e] text-white px-3 py-1 rounded"
+                    className="w-full md:w-32 bg-[#94a3b8] text-white px-4 py-2 rounded-lg text-sm md:text-base hover:bg-[#93a6c2] transition-colors"
                   >
                     Reject
                   </button>
-                  {/* <button
-                    onClick={() => handleAction(request.id, "Rescheduled")}
-                    className="bg-[#9ca3af] text-white px-2 py-1 rounded"
-                  >
-                    Reschedule
-                  </button> */}
                 </>
               )}
             </div>

@@ -396,6 +396,11 @@ const Sidebar = ({ onSidebarToggle }) => {
       path: "/settings/appointments",
       icon: <MdVerified />,
     },
+    {
+      name: "Therapies",
+      path: "/settings/therapies",
+      icon: <MdVerified />,
+    },
   ];
 
   const handleLogout = () => {

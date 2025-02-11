@@ -10,7 +10,10 @@ import Payments from "../Payments/Payments";
 import Reviews from "../Reviews/Reviews";
 import Account from "../Settings/Account";
 import Appointments from "../Settings/Appointments";
+import ChooseTherapy from "../Settings/ChooseTherapy";
 import ProfileVerification from "../Settings/ProfileVerification";
+
+import Therapies from "../Settings/Therapies";
 import Sidebar from "../Sidebar/Sidebar";
 const Home = () => {
   // const [isSidebarClosed, setIsSidebarClosed] = useState(false);
@@ -19,7 +22,7 @@ const Home = () => {
   //   setIsSidebarClosed(isClose);
   // };
   const location = useLocation();
-  const match = ["/my-services/:id"];
+  const match = ["/my-services/:id", "/provider/select-therapies"];
 
   const noSideBarPagesList = match.find((path) =>
     matchPath({ path }, location.pathname)
@@ -55,6 +58,11 @@ const Home = () => {
             />
             <Route path="/settings/account" element={<Account />} />
             <Route path="/settings/appointments" element={<Appointments />} />
+            <Route path="/settings/therapies" element={<Therapies />} />
+            <Route
+              path="/provider/select-therapies"
+              element={<ChooseTherapy />}
+            />
           </Routes>
           <Outlet />
         </main>

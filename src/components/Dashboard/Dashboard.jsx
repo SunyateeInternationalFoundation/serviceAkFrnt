@@ -5,13 +5,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const navigate = useNavigate();
+  const providerId = useSelector((state) => state.provider.providerId);
   const [appointments, setAppointments] = useState({
     current: "",
     cancelled: "",
     completed: "",
   });
   const [assignedJob, setAssignedJob] = useState([]);
-  const providerId = useSelector((state) => state.provider.providerId);
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchMyServices = async () => {
       try {
@@ -40,42 +41,52 @@ const Dashboard = () => {
         console.error("Error fetching job services:", error);
       }
     };
+    const getReviews = async () => {
+      const response = await axios.get(
+        `${import.meta.env.VITE_WEBSITE}/reviews/${providerId}`
+      );
+      if (response.data.success) {
+        setReviews(response.data.data);
+      }
+    };
     fetchMyServices();
+    getReviews();
   }, [providerId]);
-  const reviews = [
-    {
-      id: 1,
-      name: "Maude Rossi",
-      service: "autism therapy",
-      provider: "rebecca",
-      rating: 4.9,
-      image: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      id: 2,
-      name: "Livengood",
-      service: "special education",
-      provider: "Adrian",
-      rating: 4.9,
-      image: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      id: 3,
-      name: "Karl Brown",
-      service: "special education",
-      provider: "Andreson",
-      rating: 4.9,
-      image: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      id: 4,
-      name: "Jerry Curran",
-      service: "autism therapy",
-      provider: "Pique",
-      rating: 4.9,
-      image: "/placeholder.svg?height=40&width=40",
-    },
-  ];
+
+  // const reviews = [
+  //   {
+  //     id: 1,
+  //     name: "Maude Rossi",
+  //     service: "autism therapy",
+  //     provider: "rebecca",
+  //     rating: 4.9,
+  //     image: "/placeholder.svg?height=40&width=40",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Livengood",
+  //     service: "special education",
+  //     provider: "Adrian",
+  //     rating: 4.9,
+  //     image: "/placeholder.svg?height=40&width=40",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Karl Brown",
+  //     service: "special education",
+  //     provider: "Andreson",
+  //     rating: 4.9,
+  //     image: "/placeholder.svg?height=40&width=40",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Jerry Curran",
+  //     service: "autism therapy",
+  //     provider: "Pique",
+  //     rating: 4.9,
+  //     image: "/placeholder.svg?height=40&width=40",
+  //   },
+  // ];
   // const jobList = [
   //   {
   //     id: 1,
@@ -175,16 +186,18 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="space-y-6">
-            {reviews.map((review) => (
+            {reviews.slice(0, 3).map((review) => (
               <div
-                key={review.id}
+                key={review._id}
                 className="flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
                   <div>
-                    <h4 className="font-semibold">{review.name}</h4>
+                    <h4 className="font-semibold">
+                      {review?.childId?.basicInfo.childFullName}
+                    </h4>
                     <p className="text-sm text-gray-500">
-                      For {review.service}
+                      For {review?.serviceId?.name}
                     </p>
                   </div>
                 </div>

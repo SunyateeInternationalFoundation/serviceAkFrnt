@@ -27,24 +27,27 @@ function Account() {
 
   const [isEditing, setIsEditing] = useState(false);
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`)
-      .then((response) => {
-        console.log("response", response.data.data);
-        console.log("response", response.data.services);
-        setUserData(response.data.data);
-        setAllServices(
-          response.data.services.map((ser) => {
-            return {
-              value: ser._id,
-              label: ser.name,
-            };
-          })
-        );
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the user data!", error);
-      });
+    async function getProviderData() {
+      axios
+        .get(`${import.meta.env.VITE_WEBSITE}/provider/${providerId}`)
+        .then((response) => {
+          console.log("response", response.data.data);
+          console.log("response", response.data.services);
+          setUserData(response.data.data);
+          setAllServices(
+            response.data.services.map((ser) => {
+              return {
+                value: ser._id,
+                label: ser.name,
+              };
+            })
+          );
+        })
+        .catch((error) => {
+          console.error("There was an error fetching the user data!", error);
+        });
+    }
+    getProviderData();
   }, []);
   console.log("providerId", providerId);
   const handleInputChange = (e) => {
@@ -196,7 +199,7 @@ function Account() {
               name="name"
               value={userData.name}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled={!isEditing}
             />
@@ -209,7 +212,7 @@ function Account() {
               name="userName"
               value={userData.userName}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled={!isEditing}
             />
@@ -225,7 +228,7 @@ function Account() {
               name="email"
               value={userData.email}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="email"
               disabled
             />
@@ -238,7 +241,7 @@ function Account() {
               name="phone"
               value={userData.phone}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled
             />
@@ -254,7 +257,7 @@ function Account() {
               name="gender"
               value={userData.gender}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               disabled={!isEditing}
             >
               <option value="Male">Male</option>
@@ -270,7 +273,7 @@ function Account() {
               name="dob"
               value={userData.dob}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="date"
               disabled={!isEditing}
             />
@@ -285,7 +288,7 @@ function Account() {
             name="bio"
             value={userData.bio}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-white"
             rows="2"
             disabled={!isEditing}
           ></textarea>
@@ -300,7 +303,7 @@ function Account() {
             name="address"
             value={userData.address}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-white"
             type="text"
  disabled={!isEditing}
           />
@@ -313,7 +316,7 @@ function Account() {
             name="country"
             value={userData.country}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-white"
             type="text"
  disabled={!isEditing}
           />
@@ -327,7 +330,7 @@ function Account() {
             name="address"
             value={userData.address}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-white"
             type="text"
             disabled={!isEditing}
           />
@@ -341,7 +344,7 @@ function Account() {
               name="state"
               value={userData.state}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled={!isEditing}
             />
@@ -354,7 +357,7 @@ function Account() {
               name="city"
               value={userData.city}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled={!isEditing}
             />
@@ -370,7 +373,7 @@ function Account() {
               name="pincode"
               value={userData.pincode}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled={!isEditing}
             />
@@ -383,7 +386,7 @@ function Account() {
               name="country"
               value={userData.country}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded bg-white"
               type="text"
               disabled={!isEditing}
             />
@@ -397,7 +400,7 @@ function Account() {
             name="languages"
             value={userData.languages}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-white"
             type="text"
             disabled={!isEditing}
           /> */}

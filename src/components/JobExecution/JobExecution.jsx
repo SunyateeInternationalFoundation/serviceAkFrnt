@@ -50,7 +50,8 @@ const JobExecution = () => {
         );
         const filteredBookings = res.data.data.filter(
           (booking) =>
-            booking.accepted === false && booking.status === "Cancelled"
+            (booking.accepted === false && booking.status === "Cancelled") ||
+            (booking.accepted === true && booking.status === "Completed")
         );
         setJobExecution(filteredBookings);
       } catch (error) {
@@ -99,7 +100,7 @@ const JobExecution = () => {
             <div className="flex space-x-2 mt-4 md:mt-0">
               <button
                 className={`text-white px-3 py-1 rounded ${
-                  service.status === "Rejected"
+                  service.status === "Cancelled"
                     ? "bg-[#e11d48]"
                     : "bg-[#0f766e]"
                 }`}
